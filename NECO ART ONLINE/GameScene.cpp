@@ -25,7 +25,7 @@ GameScene::~GameScene()
 
 void GameScene::Init()
 {
-	
+	m_pPlayer->Init();
 }
 
 void GameScene::Update(Input& input)

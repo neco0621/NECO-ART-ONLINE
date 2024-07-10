@@ -8,6 +8,7 @@ public:
 	Collision();
 	virtual ~Collision();
 
+	void Update();
 	//“–‚½‚è”»’è‚Ì‹éŒ`‚Ì•`‰æ
 	void Draw(unsigned int Color, bool isFill);
 	//“–‚½‚è”»’è‚Ì—§•û‘Ì‚Ì•`‰æ

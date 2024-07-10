@@ -3,7 +3,8 @@
 
 Player::Player() :
 m_handle(-1),
-m_pos(VGet(960, 0, 540))
+m_pos(VGet(0, 0, 0)),
+m_dir(VGet(0,0,1))
 {
 }
 
@@ -13,8 +14,7 @@ Player::~Player()
 
 void Player::Init()
 {
-	//ライトを使うか使わないか
-	SetUseLighting(false);
+	MV1SetScale(m_handle,VGet(0.5f,0.5f,0.5f));
 }
 
 void Player::Update()
@@ -42,26 +42,17 @@ void Player::Update()
 		m_pos = VAdd(m_pos, VGet(7, 0, 0));
 	}
 
-	//プレイヤーが画面外に行かないように座標を設定
-	if (m_pos.x > Game::kScreenWidth)
-	{
-		m_pos = VGet(Game::kScreenWidth, m_pos.y, m_pos.z);
-	}
-	if (m_pos.x < 0)
-	{
-		m_pos = VGet(0, m_pos.y, m_pos.z);
-	}
-	if (m_pos.z > Game::kScreenHeight)
-	{
-		m_pos = VGet(m_pos.x, m_pos.y, Game::kScreenHeight);
-	}
-	if (m_pos.z < 0)
-	{
-		m_pos = VGet(m_pos.x, m_pos.y, 0);
-	}
-
 	// ３Dモデルのポジション設定
 	MV1SetPosition(m_handle, m_pos);
+
+	// 向きに合わせて回転.
+	MV1SetRotationZYAxis(m_handle, m_dir, VGet(0.0f, 1.0f, 0.0f), 0.0f);
+
+	// モデルに向いてほしい方向に回転.
+	MATRIX tmpMat = MV1GetMatrix(m_handle);
+	MATRIX rotYMat = MGetRotY(180.0f * (float)(DX_PI / 180.0f));
+	tmpMat = MMult(tmpMat, rotYMat);
+	MV1SetRotationMatrix(m_handle, tmpMat);
 }
 
 void Player::Draw()

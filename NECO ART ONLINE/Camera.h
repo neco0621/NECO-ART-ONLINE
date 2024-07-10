@@ -11,6 +11,8 @@ public:
 	void Update(const Player& player);
 	void Draw();
 
+	const VECTOR& GetPos() const { return m_pos; }
+
 private:
 	VECTOR m_pos;
 };

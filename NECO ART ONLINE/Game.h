@@ -6,4 +6,6 @@ namespace Game
 	constexpr float kScreenWidth = 1920.0f;      //‰æ–Ê‚Ì‰¡•
 	constexpr float kScreenHeight = 1080.0f;     //‰æ–Ê‚Ìc•
 	constexpr int kColorDepth = 32;        //16 or 32
+
+	const char* const kTitleText = "NECO ART ONLINE";
 }
