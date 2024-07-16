@@ -13,6 +13,7 @@ Camera::Camera()
     SetCameraNearFar(0.1f, 10000.0f);
 
     m_pos = VGet(0, 0, 0);
+	m_rot = VGet(0, 0, 0);
 }
 
 Camera::~Camera()

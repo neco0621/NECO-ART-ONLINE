@@ -22,19 +22,19 @@ public:
 	void SetPos(const VECTOR set) { m_info.pos = set; }
 
 	// 向きのgetter/setter.
-	const VECTOR& GetDir() const { return m_info.rot; }
-	void SetDir(const VECTOR set) { m_info.rot = set; }
+	const VECTOR& GetRot() const { return m_info.rot; }
+	void SetRot(const VECTOR set) { m_info.rot = set; }
 
 	//移動方向と角度を考慮した移動更新
 	VECTOR MoveUpdate();
 private:
 	//アニメーションハンドル
-	int m_animationHandle;
+	int m_runHandle;
 
 	int m_idleHandle;
 
 	//3Dモデルのアニメーションインデックス
-	int m_attachIndex;
+	int m_idleIndex;
 
 	//3Dモデルのアニメーションインデックス
 	int m_runIndex;
@@ -44,5 +44,8 @@ private:
 
 	//アニメーションの現在時間
 	float m_playTime;
+
+	//走るアニメーションへの切り替え
+	bool m_runFlag;
 };
 

@@ -12,10 +12,10 @@ namespace
 }
 
 Player::Player() :
-	m_playTime(0.0f),
-	m_dir(VGet(0,0,1))
+	m_playTime(0.0f)
 {	
 	m_info.pos = VGet(0.0f,0.0f,0.0f);
+	m_info.rot = VGet(0.0f, 0.0f, 0.0f);
 }
 
 Player::~Player()
@@ -26,20 +26,18 @@ void Player::Init()
 {
 	MV1SetScale(m_info.modelHandle, VGet(0.75f, 0.75f, 0.75f));
 
-	m_animationHandle = MV1LoadModel("data/model/Run.mv1");
+	m_runHandle = MV1LoadModel("data/model/Run.mv1");
 	m_idleHandle = MV1LoadModel("data/model/Idle.mv1");
 
-	m_runIndex = MV1AttachAnim(m_info.modelHandle, 0, m_animationHandle, TRUE);
-	m_tottalTime = MV1GetAttachAnimTotalTime(m_info.modelHandle, m_runIndex);
-	m_attachIndex = -1;
+	m_runIndex = MV1AttachAnim(m_info.modelHandle, 0, m_runHandle, TRUE);
+	m_idleIndex = MV1AttachAnim(m_info.modelHandle, 0, m_idleHandle, TRUE);
+	m_tottalTime = MV1GetAttachAnimTotalTime(m_info.modelHandle, m_idleIndex);
 }
 
 void Player::Update()
 {
 	//ÉvÉåÉCÉÑÅ[ÇÃà⁄ìÆ
-	int pad = GetJoypadInputState(DX_INPUT_KEY_PAD1);
-
-	
+	int pad = GetJoypadInputState(DX_INPUT_KEY_PAD1);	
 
 	if (((pad & PAD_INPUT_UP) | (pad & PAD_INPUT_8)) != 0)
 	{

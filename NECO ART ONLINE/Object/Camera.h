@@ -15,5 +15,6 @@ public:
 
 private:
 	VECTOR m_pos;
+	VECTOR m_rot;
 };
 
