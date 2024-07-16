@@ -13,6 +13,5 @@ namespace CharacterComponent
 		int modelHandle;//ƒ‚ƒfƒ‹ƒnƒ“ƒhƒ‹
 		int isExist;	//‘¶İ‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©
 	};
-
 }
 

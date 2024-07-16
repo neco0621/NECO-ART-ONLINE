@@ -4,8 +4,8 @@
 #include "SceneManager.h"
 #include "GameScene.h"
 #include "../Game.h"
-#include "../Player.h"
-#include "../Camera.h"
+#include "../Object/Player.h"
+#include "../Object/Camera.h"
 
 GameScene::GameScene(SceneManager& manager) : Scene(manager)
 {

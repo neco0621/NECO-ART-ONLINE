@@ -147,26 +147,31 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="CharacterComponent.cpp" />
+    <ClCompile Include="Object\CharacterBase.cpp" />
+    <ClCompile Include="Object\Camera.cpp" />
     <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="Object\ObjectBase.cpp" />
+    <ClCompile Include="Object\ObjectManager.cpp" />
     <ClCompile Include="Scene\GameScene.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Object\Player.cpp" />
     <ClCompile Include="Scene\Scene.cpp" />
     <ClCompile Include="Scene\SceneManager.cpp" />
     <ClCompile Include="Scene\TitleScene.cpp" />
     <ClCompile Include="Vec3.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Camera.h" />
+    <ClInclude Include="Object\CharacterBase.h" />
+    <ClInclude Include="Object\Camera.h" />
     <ClInclude Include="CharacterComponent.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Object\ObjectBase.h" />
+    <ClInclude Include="Object\ObjectManager.h" />
     <ClInclude Include="Scene\GameScene.h" />
     <ClInclude Include="Input.h" />
-    <ClInclude Include="Player.h" />
+    <ClInclude Include="Object\Player.h" />
     <ClInclude Include="Scene\Scene.h" />
     <ClInclude Include="Scene\SceneManager.h" />
     <ClInclude Include="Scene\TitleScene.h" />
