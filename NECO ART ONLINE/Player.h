@@ -30,6 +30,15 @@ private:
 
 	int m_handle;
 
+	//3Dモデルのアニメーションインデックス
+	int m_attachIndex;
+
+	//アニメーションの再生時間
+	float m_tottalTime;
+
+	//アニメーションの現在時間
+	float m_playTime;
+
 	VECTOR m_dir;
 
 };

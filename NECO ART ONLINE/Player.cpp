@@ -1,11 +1,25 @@
 #include "Player.h"
 #include "Game.h"
 
+namespace
+{
+	//スピード
+	constexpr float kSpeed = 7.0f;
+	//半径
+	constexpr float kRadius = 70.0f;
+	//モデルのサイズ
+	constexpr float kScale = 0.5f;
+}
+
 Player::Player() :
 m_handle(-1),
 m_pos(VGet(0, 0, 0)),
 m_dir(VGet(0,0,1))
 {
+	m_attachIndex = MV1AttachAnim(m_handle, 1, -1);
+	m_tottalTime = MV1GetAttachAnimTotalTime(m_handle, m_attachIndex);
+	MV1SetAttachAnimTime(m_handle, m_attachIndex, m_playTime);
+
 }
 
 Player::~Player()
@@ -42,6 +56,13 @@ void Player::Update()
 		m_pos = VAdd(m_pos, VGet(7, 0, 0));
 	}
 
+	// アニメーション再生時間がアニメーションの総時間を越えていたらループさせる
+	if (m_playTime >= m_tottalTime)
+	{
+		// 新しいアニメーション再生時間は、アニメーション再生時間からアニメーション総時間を引いたもの
+		m_playTime -= m_tottalTime;
+	}
+
 	// ３Dモデルのポジション設定
 	MV1SetPosition(m_handle, m_pos);
 
@@ -53,6 +74,8 @@ void Player::Update()
 	MATRIX rotYMat = MGetRotY(180.0f * (float)(DX_PI / 180.0f));
 	tmpMat = MMult(tmpMat, rotYMat);
 	MV1SetRotationMatrix(m_handle, tmpMat);
+	
+	MV1SetAttachAnimTime(m_handle, m_attachIndex, m_playTime);
 }
 
 void Player::Draw()
