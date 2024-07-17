@@ -1,5 +1,2 @@
-﻿  Main.cpp
-C:\Users\fko2347078\Downloads\DxLib_VC3_24b\DxLib_VC\プロジェクトに追加すべきファイル_VC用\DxLib.h(3344,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-C:\NECO-ART-ONLINE\NECO ART ONLINE\Main.cpp(13,41): warning C4244: '引数': 'const float' から 'int' への変換です。データが失われる可能性があります。
-C:\NECO-ART-ONLINE\NECO ART ONLINE\Main.cpp(13,21): warning C4244: '引数': 'const float' から 'int' への変換です。データが失われる可能性があります。
-  NECO ART ONLINE.vcxproj -> C:\NECO-ART-ONLINE\NECO ART ONLINE\x64\Debug\NECO ART ONLINE.exe
+﻿  Camera.cpp
+  NECO ART ONLINE.vcxproj -> C:\Users\金子瞬\Documents\GitHub\NECO-ART-ONLINE\NECO ART ONLINE\x64\Debug\NECO ART ONLINE.exe
