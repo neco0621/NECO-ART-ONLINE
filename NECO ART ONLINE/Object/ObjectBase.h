@@ -4,6 +4,11 @@
 #include<DxLib.h>
 #include "../CharacterComponent.h"
 
+class Model;
+class GameScene;
+class Player;
+class ObjectManager;
+
 class ObjectBase
 {
 public:
@@ -36,6 +41,8 @@ public:
 	virtual ColType GetColType() const { return ColType::None; }
 
 protected:
+	//モデルクラス
+	std::shared_ptr<Model> m_pModel;
 	//キャラクター情報
 	CharacterComponent::CharacterInfo m_info;
 
@@ -47,5 +54,8 @@ protected:
 
 	//攻撃を受けたか
 	bool m_isDamage;
+
+	//プレイヤーの向き
+	float m_angle;
 };
 

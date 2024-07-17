@@ -13,6 +13,11 @@ public:
 		float speed = 10; //スピード
 	};
 
+	struct AnimData
+	{
+		int8_t idle = 0;	//待機モーション
+		int8_t run = 0;		//走るモーション
+	};
 
 public:
 	CharacterBase();
@@ -30,5 +35,6 @@ public:
 
 protected:
 	Status m_statusData;	//ステータスデータ
+	AnimData m_animData;	//アニメーションデータ
 };
 

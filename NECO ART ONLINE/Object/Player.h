@@ -4,6 +4,7 @@
 #include "../Collision.h"
 #include "CharacterBase.h"
 
+class Model;
 class Player : public CharacterBase
 {
 public:
@@ -25,12 +26,14 @@ public:
 	const VECTOR& GetRot() const { return m_info.rot; }
 	void SetRot(const VECTOR set) { m_info.rot = set; }
 
-	//移動方向と角度を考慮した移動更新
-	VECTOR MoveUpdate();
+	void IdleInit() {};
+	void IdleUpdate();
+
 private:
 	//アニメーションハンドル
 	int m_runHandle;
 
+	//待機モーションハンドル
 	int m_idleHandle;
 
 	//3Dモデルのアニメーションインデックス
@@ -39,13 +42,18 @@ private:
 	//3Dモデルのアニメーションインデックス
 	int m_runIndex;
 
-	//アニメーションの再生時間
-	float m_tottalTime;
+	//走るアニメーションの再生時間
+	float m_runTotalTime;
+
+	//待機アニメーションの再生時間
+	float m_idleTotalTime;
 
 	//アニメーションの現在時間
 	float m_playTime;
 
 	//走るアニメーションへの切り替え
 	bool m_runFlag;
-};
 
+	//待機アニメーションへの切り替え
+	bool m_idleFlag;
+};
