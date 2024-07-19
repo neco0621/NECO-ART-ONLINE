@@ -30,30 +30,32 @@ public:
 	void IdleUpdate();
 
 private:
-	//アニメーションハンドル
-	int m_runHandle;
 
-	//待機モーションハンドル
-	int m_idleHandle;
 
-	//3Dモデルのアニメーションインデックス
-	int m_idleIndex;
+	int m_idleHandle;		//待機モーションハンドル
+	int m_runHandle;		//走るアニメーションハンドル
+	int m_attackHandle;		//攻撃1のアニメーションハンドル
 
-	//3Dモデルのアニメーションインデックス
-	int m_runIndex;
+	
+	int m_idleIndex;		//3Dモデルのアニメーションインデックス
+	int m_runIndex;			//走るメーションインデックス
+	int m_attackIndex;		//攻撃1アニメーションインデックス
 
-	//走るアニメーションの再生時間
-	float m_runTotalTime;
 
-	//待機アニメーションの再生時間
-	float m_idleTotalTime;
+	
+	float m_idleTotalTime;	//待機アニメーションの再生時間
+	float m_runTotalTime;	//走るアニメーションの再生時間
+	float m_attackTotalTime;//攻撃1アニメーションの総再生時間
 
+	
 	//アニメーションの現在時間
 	float m_playTime;
 
 	//走るアニメーションへの切り替え
 	bool m_runFlag;
 
-	//待機アニメーションへの切り替え
+	bool m_attackFlag;
+
 	bool m_idleFlag;
+
 };

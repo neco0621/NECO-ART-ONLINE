@@ -16,6 +16,7 @@ GameScene::GameScene(SceneManager& manager) : Scene(manager)
 
 	//プレイヤーのモデルのセット
 	m_pPlayer->SetHandle(m_playerHandle);
+	Init();
 }
 
 GameScene::~GameScene()

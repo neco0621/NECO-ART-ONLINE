@@ -17,6 +17,7 @@ public:
 	{
 		int8_t idle = 0;	//待機モーション
 		int8_t run = 0;		//走るモーション
+		int8_t attack = 0;	//攻撃モーション
 	};
 
 public:

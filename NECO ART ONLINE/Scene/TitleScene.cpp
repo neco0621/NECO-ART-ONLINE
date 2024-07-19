@@ -32,4 +32,8 @@ void TitleScene::Update(Input& input)
 
 void TitleScene::Draw()
 {
+#ifdef _DEBUG
+	DrawFormatString(100,100,0xffffff,"Title");
+#endif
+
 }

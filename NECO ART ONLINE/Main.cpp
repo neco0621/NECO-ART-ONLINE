@@ -2,8 +2,10 @@
 #include "Scene/Scene.h"
 #include "Scene/SceneManager.h"
 #include "Scene/GameScene.h"
+#include "Scene/TitleScene.h"
 #include "Game.h"
 #include "Input.h"
+
 
 // ƒvƒƒOƒ‰ƒ€‚Í WinMain ‚©‚çn‚Ü‚è‚Ü‚·
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
@@ -27,7 +29,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	SetWriteZBuffer3D(true);
 
 	SceneManager manager;
-	manager.ChangeScene(std::make_shared<GameScene>(manager));
+	manager.ChangeScene(std::make_shared<TitleScene>(manager));
 	Input input;
 	manager.Init();
 
