@@ -17,7 +17,8 @@ namespace
 Player::Player() :
 	m_playTime(0.0f),
 	m_runFlag(true),
-	m_attackFlag(false)
+	m_attackFlag(false),
+	m_avoidanceFlag(false)
 {	
 	m_info.pos = VGet(0.0f,0.0f,0.0f);
 	m_info.rot = VGet(0.0f, 0.0f, 0.0f);
@@ -31,22 +32,28 @@ void Player::Init()
 {
 	MV1SetScale(m_info.modelHandle, VGet(0.75f, 0.75f, 0.75f));
 
-	m_idleHandle = MV1LoadModel("data/animation/Idle.mv1");
-	m_runHandle = MV1LoadModel("data/animation/Run.mv1");
-	m_attackHandle = MV1LoadModel("data/animation/Attack1.mv1");
+	m_idleHandle		 = MV1LoadModel("data/animation/Idle.mv1");
+	m_runHandle			 = MV1LoadModel("data/animation/Run.mv1");
+	m_attackHandle		 = MV1LoadModel("data/animation/Attack1.mv1");
+	m_avoidanceHandle	 = MV1LoadModel("data/animation/Avoidance.mv1");
 	
-	m_idleIndex = MV1AttachAnim(m_info.modelHandle, 0, m_idleHandle, TRUE);
-	m_runIndex = MV1AttachAnim(m_info.modelHandle, 0, m_runHandle, TRUE);
-	m_attackIndex = MV1AttachAnim(m_info.modelHandle, 0, m_attackHandle, TRUE);
+	m_idleIndex			 = MV1AttachAnim(m_info.modelHandle, 0, m_idleHandle, TRUE);
+	m_runIndex			 = MV1AttachAnim(m_info.modelHandle, 0, m_runHandle, TRUE);
+	m_attackIndex		 = MV1AttachAnim(m_info.modelHandle, 0, m_attackHandle, TRUE);
+	m_avoidanceIndex	 = MV1AttachAnim(m_info.modelHandle, 0, m_avoidanceHandle, TRUE);
 
-	m_idleTotalTime = MV1GetAttachAnimTotalTime(m_info.modelHandle, m_idleIndex);
-	m_runTotalTime = MV1GetAttachAnimTotalTime(m_info.modelHandle, m_runIndex);
-	m_attackTotalTime = MV1GetAttachAnimTotalTime(m_info.modelHandle, m_attackIndex);
+	m_idleTotalTime		 = MV1GetAttachAnimTotalTime(m_info.modelHandle, m_idleIndex);
+	m_runTotalTime		 = MV1GetAttachAnimTotalTime(m_info.modelHandle, m_runIndex);
+	m_attackTotalTime	 = MV1GetAttachAnimTotalTime(m_info.modelHandle, m_attackIndex);
+	m_avoidanceTotalTime = MV1GetAttachAnimTotalTime(m_info.modelHandle, m_avoidanceIndex);
 
 	MV1DetachAnim(m_info.modelHandle, m_runIndex);
 	MV1DetachAnim(m_info.modelHandle, m_attackIndex);
-	m_runIndex = -1;
-	m_attackIndex = -1;
+	MV1DetachAnim(m_info.modelHandle, m_avoidanceIndex);
+	
+	m_runIndex		 = -1;
+	m_attackIndex	 = -1;
+	m_avoidanceIndex = -1;
 }
 
 void Player::Update()
@@ -62,6 +69,7 @@ void Player::Update()
 		m_runFlag = true;
 		m_idleFlag = false;
 		m_attackFlag = false;
+		m_avoidanceFlag = false;
 	}
 	else if ((pad & PAD_INPUT_DOWN) != 0 && m_attackFlag == false)
 	{
@@ -70,6 +78,7 @@ void Player::Update()
 		m_runFlag = true;
 		m_idleFlag = false;
 		m_attackFlag = false;
+		m_avoidanceFlag = false;
 	}
 	else if ((pad & PAD_INPUT_LEFT) != 0 && m_attackFlag == false)
 	{
@@ -78,6 +87,7 @@ void Player::Update()
 		m_runFlag = true;
 		m_idleFlag = false;
 		m_attackFlag = false;
+		m_avoidanceFlag = false;
 	}
 	else if ((pad & PAD_INPUT_RIGHT) != 0 && m_attackFlag == false)
 	{
@@ -86,18 +96,28 @@ void Player::Update()
 		m_runFlag = true;
 		m_idleFlag = false;
 		m_attackFlag = false;
+		m_avoidanceFlag = false;
 	}
 	else if ((pad & PAD_INPUT_3) != 0 && m_attackFlag == false)
 	{
 		m_attackFlag = true;
 		m_runFlag = false;
 		m_idleFlag = false;
+		m_avoidanceFlag = false;
 	}
-	else if(!(pad & PAD_INPUT_3) && m_attackFlag == false)
+	else if ((pad & PAD_INPUT_2) != 0 && m_avoidanceFlag == false)
+	{
+		m_attackFlag = false;
+		m_runFlag = false;
+		m_idleFlag = false;
+		m_avoidanceFlag = true;
+	}
+	else if(!(pad & PAD_INPUT_3) && !(pad & PAD_INPUT_2) && m_attackFlag == false && m_avoidanceFlag == false)
 	{
 		m_runFlag = false;
 		m_idleFlag = true;
 		m_attackFlag = false;
+		m_avoidanceFlag = false;
 	}
 
 
@@ -110,36 +130,58 @@ void Player::Update()
 
 	if (m_runFlag)
 	{
-		if (m_idleIndex != -1 || m_attackIndex != -1)
+		if (m_idleIndex != -1 || m_attackIndex != -1 || m_avoidanceIndex != -1)
 		{
 			MV1DetachAnim(m_info.modelHandle, m_idleIndex);
 			MV1DetachAnim(m_info.modelHandle, m_attackIndex);
+			MV1DetachAnim(m_info.modelHandle, m_avoidanceIndex);
 			m_runIndex = MV1AttachAnim(m_info.modelHandle, 0, m_runHandle, TRUE);
 			m_idleIndex = -1;
 			m_attackIndex = -1;
+			m_avoidanceIndex = -1;
 		}
 	}
-	if (m_idleFlag && !m_attackFlag)
+
+	if (m_idleFlag)
 	{
-		if (m_runIndex != -1 || m_attackIndex != -1)
+		if (m_runIndex != -1 || m_attackIndex != -1 || m_avoidanceIndex != -1)
 		{
 			MV1DetachAnim(m_info.modelHandle, m_runIndex);
 			MV1DetachAnim(m_info.modelHandle, m_attackIndex);
+			MV1DetachAnim(m_info.modelHandle, m_avoidanceIndex);
 			m_idleIndex = MV1AttachAnim(m_info.modelHandle, 0, m_idleHandle, TRUE);
 			m_runIndex = -1;
 			m_attackIndex = -1;
+			m_avoidanceIndex = -1;
 		}
 	}
 
 	if (m_attackFlag)
 	{
-		if (m_runIndex != -1 || m_idleIndex != -1)
+		if (m_runIndex != -1 || m_idleIndex != -1 || m_avoidanceIndex != -1)
 		{
 			MV1DetachAnim(m_info.modelHandle, m_runIndex);
 			MV1DetachAnim(m_info.modelHandle, m_idleIndex);
+			MV1DetachAnim(m_info.modelHandle, m_avoidanceIndex);
 			m_attackIndex = MV1AttachAnim(m_info.modelHandle, 0, m_attackHandle, TRUE);
 			m_idleIndex = -1;
 			m_runIndex = -1;
+			m_avoidanceIndex = -1;
+			m_playTime = 0;
+		}
+	}
+
+	if (m_avoidanceFlag)
+	{
+		if (m_attackIndex != -1 || m_runIndex != -1 || m_idleIndex != -1)
+		{
+			MV1DetachAnim(m_info.modelHandle, m_runIndex);
+			MV1DetachAnim(m_info.modelHandle, m_idleIndex);
+			MV1DetachAnim(m_info.modelHandle, m_attackIndex);
+			m_avoidanceIndex = MV1AttachAnim(m_info.modelHandle, 0, m_avoidanceHandle, TRUE);
+			m_idleIndex = -1;
+			m_runIndex = -1;
+			m_attackIndex = -1;
 			m_playTime = 0;
 		}
 	}
@@ -169,12 +211,20 @@ void Player::Update()
 	if (m_attackIndex != -1)
 	{
 		MV1SetAttachAnimTime(m_info.modelHandle, m_attackIndex, m_playTime);
-		m_idleFlag = false;
-		m_runFlag = false;
 		// アニメーション再生時間がアニメーションの総時間を越えていたらループさせる
 		if (m_playTime >= m_attackTotalTime)
 		{
 			m_attackFlag = false;
+		}
+	}
+
+	if (m_avoidanceIndex != -1)
+	{
+		MV1SetAttachAnimTime(m_info.modelHandle, m_avoidanceIndex, m_playTime);
+		// アニメーション再生時間がアニメーションの総時間を越えていたらループさせる
+		if (m_playTime >= m_avoidanceTotalTime)
+		{
+			m_avoidanceFlag = false;
 		}
 	}
 }
