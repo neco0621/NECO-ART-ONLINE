@@ -26,6 +26,9 @@ public:
 	const VECTOR& GetRot() const { return m_info.rot; }
 	void SetRot(const VECTOR set) { m_info.rot = set; }
 
+	const Collision GetCol() const { return m_pCol; }
+	void SetCol(const Collision col) { m_pCol = col; }
+
 	void IdleInit() {};
 	void IdleUpdate();
 
@@ -55,4 +58,7 @@ private:
 
 	//アニメーションの現在時間
 	float m_playTime;
+
+	//当たり判定
+	Collision m_pCol;
 };

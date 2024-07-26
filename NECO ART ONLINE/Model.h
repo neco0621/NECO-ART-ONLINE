@@ -50,6 +50,8 @@ private:
 	VECTOR m_pos;
 	//アニメーションのデータクリア
 	void ClearAnimData(AnimData& anim);
+	// アニメーションの更新
+	void UpdateAnim(AnimData anim, float dt = 1.0f);
 
 private:
 	//モデルのハンドル
